@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @Slf4j // Logging Annotation
 public class ArticleController {
@@ -41,8 +43,7 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}") // {id}는 id 값이 변수임을 명시.
-    public String show(@PathVariable Long id, Model model)
-    {
+    public String show(@PathVariable Long id, Model model) {
         log.info("id = " + id);
 
         // Get entity from repository by ID
@@ -53,5 +54,19 @@ public class ArticleController {
 
         // throw model to article/show
         return "articles/show";
+    }
+
+    @GetMapping("/articles")
+    public String index(Model model) {
+        // Get all articles
+        // List<Article> articleEntityList = (List<Article>)articleRepository.findAll();
+        // Iterable<Article> articleEntityList = articleRepository.findAll();
+        List<Article> articleEntityList = articleRepository.findAll(); // return ArrayList
+
+        // throw articles to view
+        model.addAttribute("articleList", articleEntityList);
+
+        // set view page
+        return "articles/index"; // articles/index.mustache
     }
 }
