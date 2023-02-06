@@ -2,6 +2,7 @@ package com.example.firstproject.repository;
 
 import com.example.firstproject.entity.Article;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 

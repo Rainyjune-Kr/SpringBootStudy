@@ -1,5 +1,6 @@
 package com.example.firstproject.api;
 
+import com.example.firstproject.annotation.RunningTime;
 import com.example.firstproject.dto.CommentDto;
 import com.example.firstproject.entity.Comment;
 import com.example.firstproject.service.CommentService;
@@ -19,7 +20,7 @@ public class CommentApiController {
 
     // 댓글 목록 조회
     @GetMapping("/api/articles/{articleId}/comments")
-    private ResponseEntity<List<CommentDto>> comments(@PathVariable Long articleId){
+    public ResponseEntity<List<CommentDto>> comments(@PathVariable Long articleId){
         // throw to service
         List<CommentDto> dtos = commentService.comments(articleId);
 
@@ -29,7 +30,7 @@ public class CommentApiController {
 
     // 댓글 생성
     @PostMapping("/api/articles/{articleId}/comments")
-    private ResponseEntity<CommentDto> createComment(@PathVariable Long articleId,
+    public ResponseEntity<CommentDto> createComment(@PathVariable Long articleId,
                                                      @RequestBody CommentDto dto){
         CommentDto commentDto =  commentService.createComment(articleId, dto);
 
@@ -38,7 +39,7 @@ public class CommentApiController {
 
     // 댓글 수정
     @PatchMapping("/api/comments/{id}")
-    private ResponseEntity<CommentDto> updateComment(@PathVariable Long id,
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Long id,
                                                      @RequestBody CommentDto dto){
         CommentDto updatedDto =  commentService.updateComment(id, dto);
 
@@ -46,8 +47,9 @@ public class CommentApiController {
     }
 
     // 댓글 삭제
+//    @RunningTime
     @DeleteMapping("/api/comments/{id}")
-    private ResponseEntity<CommentDto> deleteComment(@PathVariable Long id){
+    public ResponseEntity<CommentDto> deleteComment(@PathVariable Long id){
         CommentDto deletedDto =  commentService.deleteComment(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(deletedDto);
